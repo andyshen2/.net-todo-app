@@ -14,15 +14,23 @@ namespace todo_app
 {
    
     public class User{
-            [Key]
-            // public int Id {get; set;}
-            public string Name {get; set;}
+        [Key]
+        public int Id {get; set;}
+        public string FirstName {get; set;}
+        public string LastName {get; set;}
+        public string Username {get; set;}
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public ICollection<ToDo> ToDos {get; set;}
+
     }
     public class UserContext : DbContext
     {
             public UserContext(DbContextOptions<UserContext> options)
           : base(options)
             { }
+
+            public DbSet<ToDo> ToDos {get; set;}
             public DbSet<User> Users { get; set; }
 
     }

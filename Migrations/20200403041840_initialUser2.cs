@@ -2,7 +2,7 @@
 
 namespace todo_app.Migrations
 {
-    public partial class update1 : Migration
+    public partial class initialUser2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
