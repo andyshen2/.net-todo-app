@@ -22,6 +22,7 @@ export class NavMenu extends Component {
   }
 
   render () {
+    console.log(this.props)
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>

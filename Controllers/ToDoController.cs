@@ -28,7 +28,7 @@ namespace todo_app.Controllers
 
         private readonly IConfiguration _configuration;
         private string _connectionString;
-        // DbContextOptionsBuilder<UserContext> _optionsBuilder;
+
 
         [ActivatorUtilitiesConstructor]
         public ToDoController (IConfiguration configuration, UserContext context, IUserService userService)
@@ -45,14 +45,18 @@ namespace todo_app.Controllers
         }
 
      
-          [HttpGet]
-            public async Task<ActionResult<IEnumerable<ToDo>>> GetTodoItems()
-            {
-                Console.WriteLine("here");
-                return await _context.ToDos
-                    .Select(x => ItemToDTO(x))
-                    .ToListAsync();
-            }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ToDo>>> GetTodoItems()
+        {
+  
+            var currentUserId = int.Parse(User.Identity.Name);
+
+            var blog1 = _context.ToDos
+                .Where(b => b.UserId == currentUserId)
+                .ToList();
+                       
+                return blog1;
+        }
 
         [HttpPost]
         public async Task<ActionResult<ToDo>> PostTodo(ToDo todoItem)
@@ -71,11 +75,6 @@ namespace todo_app.Controllers
             var user = _userService.GetById(currentUserId);
 
 
-            _userService.getAllToDo(currentUserId);
-        //     // Console.WriteLine("user.todo " +  user.ToDos.);
-        //    foreach(var i in user.ToDos){
-        //        Console.WriteLine(i.Summary);
-        //    }
             //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             return CreatedAtAction(nameof(ToDo), new { id = todoItem.Id }, todoItem);
             
@@ -108,6 +107,30 @@ namespace todo_app.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ToDo>> DeleteTodoItem(int id)
+        {
+            
+            var currentUserId = int.Parse(User.Identity.Name);
+            Console.WriteLine("delete " + currentUserId + "id " + id);
+            
+            var todoItem = await _context.ToDos.FindAsync(id);
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+            if(currentUserId == todoItem.UserId){
+
+                _context.ToDos.Remove(todoItem);
+                await _context.SaveChangesAsync();
+            }else{
+                return Unauthorized();
+            }
+           
+
+            return todoItem;
         }
          private bool TodoItemExists(long id)
         {

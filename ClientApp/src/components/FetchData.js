@@ -40,6 +40,7 @@ export class FetchData extends Component {
   }
 
   render() {
+    console.log(this.props);
     let contents = this.state.loading
 
       ? <p><em>Loading...</em></p>
@@ -56,12 +57,13 @@ export class FetchData extends Component {
 
   async populateWeatherData() {
 
-    const response = await fetch('todo');
+    // const response = await fetch('todo');
     
-    const data = await response.json();
+    // JSON.stringify(response)
+    // const data = await response.json();
 
-    console.log(data)
-    console.log("responce ", response)
-    this.setState({ forecasts: data, loading: false });
+    // console.log(data)
+    // console.log("responce ", response)
+    // this.setState({ forecasts: data, loading: false });
   }
 }
