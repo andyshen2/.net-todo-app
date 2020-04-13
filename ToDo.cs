@@ -12,7 +12,7 @@ namespace todo_app
             // [Key]
             public int Id {get; set;}
             public string Summary {get; set;}
-            public bool Finshed{ get; set; }
+            public bool Finished{ get; set; }
 
             public int UserId {get; set;}
             public User User {get; set;}

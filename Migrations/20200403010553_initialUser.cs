@@ -31,7 +31,7 @@ namespace todo_app.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Summary = table.Column<string>(nullable: true),
-                    Finshed = table.Column<bool>(nullable: false),
+                    Finished = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

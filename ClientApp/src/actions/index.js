@@ -47,6 +47,15 @@ export const getToDos = values => async dispatch => {
     const res = await axios.get('/todo');
     console.log("res", res)
     dispatch({ type: TO_DOS, payload: res.data });
+}
 
+export const deleteToDos = values => async dispatch => {
+    console.log(values);
+    const res = await axios.delete('/todo');
+}
 
+export const putToDos = values => async dispatch => {
+    console.log("here", values.id);
+
+    const res = await axios.put(`/todo/${values.id}`, values)
 }

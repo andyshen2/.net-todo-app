@@ -28,7 +28,7 @@ namespace todo_app.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Finshed")
+                    b.Property<bool>("Finished")
                         .HasColumnType("bit");
 
                     b.Property<string>("Summary")

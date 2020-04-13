@@ -1,5 +1,5 @@
   
-import { LOGIN_USER, REG_ERROR, TO_DOS } from '../actions/types';
+import { LOGIN_USER, REG_ERROR } from '../actions/types';
 
 export default function (state = {}, action) {
 	switch (action.type) {
@@ -13,8 +13,6 @@ export default function (state = {}, action) {
             console.log("auth" , action.payload.data)
             // return "FUCCCK"
             return action.payload.data;
-    case TO_DOS:
-      return action.payload;
-
+    
 	}
 }

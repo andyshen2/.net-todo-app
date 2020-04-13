@@ -80,33 +80,39 @@ namespace todo_app.Controllers
             
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(int id, ToDo todoItem)
+        public async Task<IActionResult> PutTodoItem(int id, ToDo todoItemDTO)
         {
-            Console.WriteLine(id);
-             if (id != todoItem.Id)
-            {
-                return BadRequest();
-            }
+                if (id != todoItemDTO.Id)
+                {
+                    return BadRequest();
+                }
 
-            _context.Entry(todoItem).State = EntityState.Modified;
+                var todoItem = await _context.ToDos.FindAsync(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TodoItemExists(id))
+                if (todoItem == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
+                var currentUserId = int.Parse(User.Identity.Name);
+                if(currentUserId == todoItem.UserId){
+                     todoItem.UserId = currentUserId;
+                    todoItem.Summary = todoItemDTO.Summary;
+                    todoItem.Finished = todoItemDTO.Finished;
+                }else{
+                    return Unauthorized();
                 }
-            }
+               
 
-            return NoContent();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
+                {
+                    return NotFound();
+                }
+
+                return NoContent();
         }
 
         [HttpDelete("{id}")]
@@ -141,7 +147,7 @@ namespace todo_app.Controllers
         {
             Id = todoItem.Id,
             Summary = todoItem.Summary,
-            Finshed = todoItem.Finshed,
+            Finished = todoItem.Finished,
             UserId = todoItem.UserId
         };       
 
