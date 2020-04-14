@@ -39,40 +39,45 @@ export class SingleToDo extends Component {
         });
     }
     handleFinished = event => {
-        console.log("hello")
+
         this.setState(prevState => ({
             finished: !prevState.finished
           }));
 
     }
     render() {
-        console.log("single", this.state)
+
         let edit = this.state.editing
             ? <div>
-                <input 
-                    name="summary" 
-                    value={this.state.summary}
-                    onChange={this.handleChange}
-                    />
-                
-                <Button onClick={this.saveToDo}>Save</Button>
-
-            </div>
-            :<div> 
-                
-                {this.state.summary}
-                <Button onClick={this.editToDo}>Edit</Button>
-            </div>
-           
-      return (
-        <div>
-            <Input
+                 <input
                     name="finished"
                     type="checkbox"
 
                     checked={this.state.finished}
                     onChange={this.handleFinished}
                 />
+                <input 
+                    name="summary" 
+                    value={this.state.summary}
+                    onChange={this.handleChange}
+                    />
+                <Button onClick={this.saveToDo}>Save</Button>
+            </div>
+            :<div> 
+                 <input
+                    name="finished"
+                    type="checkbox"
+
+                    checked={this.state.finished}
+                    onChange={this.handleFinished}
+                />
+               {this.state.summary}
+                <Button onClick={this.editToDo}>Edit</Button>
+            </div>
+           
+      return (
+        <div>
+           
                  {edit}
            
         </div>

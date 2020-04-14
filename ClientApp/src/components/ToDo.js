@@ -35,20 +35,25 @@ editToDo = id => {
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>Todo</th>
-            <th>finsihed. (C)</th>
+            <th>In Progress</th>
+            <th>Finished</th>
             
           </tr>
         </thead>
         <tbody>
-          {todos.map(todos =>
-            <tr key={todos.id}>
-
-              <td>{todos.summary}</td>
-              <td>{JSON.stringify(todos.finished) }</td>
-              {/* <td><Button onClick={this.editToDo(todos.id)}>Edit</Button></td> */}
-            </tr>
-          )}
+   
+          {
+              this.state.todos.map(todos =>
+                <tr key={todos.id}>
+                    <td> 
+                        <SingleToDo
+                        // key={this.state.todos[key].id}
+                        data={todos}
+                        putToDos={this.props.putToDos}/>
+                    </td>
+                    <td>sdv</td>
+                </tr>
+                )}
         </tbody>
       </table>
     );
@@ -58,27 +63,29 @@ editToDo = id => {
 render() {
     // console.log(this.state.todos);
     let rows;
+    // this.renderForecastsTable(this.state.todos);
     let contents = this.state.loading
 
       ? <p><em>Loading...</em></p>
-      : this.renderForecastsTable(this.state.todos);
-  console.log(this.props);
-    rows = Object.keys(this.state.todos).map(key => {
-        // console.log("key", key)
-        return (
+      :this.renderForecastsTable(this.state.todos);
+    //   :  rows = Object.keys(this.state.todos).map(key => {
+    //     // console.log("key", key)
+    //     return (
    
-        <SingleToDo
-            key={this.state.todos[key].id}
-            data={this.state.todos[key]}
-            putToDos={this.props.putToDos}
-        />
-        );
+    //     <SingleToDo
+    //         key={this.state.todos[key].id}
+    //         data={this.state.todos[key]}
+    //         putToDos={this.props.putToDos}
+    //     />
+    //     );
 
-    });
+    // });
+
+   
   return (
     <div>
-       {/* {contents} */}
-       <div>{rows}</div>
+       {contents}
+       {/* <div>{contents}</div> */}
    
     </div>
   );
@@ -100,5 +107,3 @@ const mapStateToProps = function(state) {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ToDo));
-
-
