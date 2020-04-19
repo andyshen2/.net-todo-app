@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { loginUser } from ".././actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import {
+  Link
+} from "react-router-dom";
 
 class Login extends Component {
 //   static displayName = Counter.name;
@@ -56,6 +59,7 @@ render() {
                   value={this.state.password}
                   onChange={this.handleChange}/>
           </label><br/>
+          Not registered? Register <Link to='/register'>Here</Link><br/>
           <input type="submit" />
       </form>
     </div>

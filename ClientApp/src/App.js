@@ -29,8 +29,9 @@ class App extends Component {
       
     // })
     return (
+      <BrowserRouter>
       <Layout>
-         <BrowserRouter>
+         
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/counter' component={Counter} />
@@ -39,11 +40,12 @@ class App extends Component {
           
           <Route path="/register" component={props => <Register {...props} />} />
           <Route  exact path='/to-do' component={Protected(props => <ToDo {...props} />)} />
-          < Route exact path="/login" component={Login}  />
+          <Route exact path="/login" component={props => <Login {...props} />}  />
 
         </Switch>
-        </BrowserRouter>
+        
       </Layout>
+      </BrowserRouter>
     );
     
   }
