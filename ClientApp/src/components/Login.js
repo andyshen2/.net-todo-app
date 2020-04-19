@@ -3,7 +3,7 @@ import { loginUser } from ".././actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-export class Login extends Component {
+class Login extends Component {
 //   static displayName = Counter.name;
 
 constructor(props) {
@@ -27,7 +27,7 @@ constructor(props) {
   handleSubmit = event => {
       event.preventDefault()
       this.props.loginUser(this.state).then(() => {
-          // this.props.history.push("/login")
+          this.props.history.push("/to-do")
       });
   }
 

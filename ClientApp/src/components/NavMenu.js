@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
@@ -21,7 +21,8 @@ export class NavMenu extends Component {
     });
   }
 handle () {
-  console.log(this.props)
+  sessionStorage.removeItem('jwt');
+  this.props.history.push('/login')
 }
   render () {
     console.log(this.props)

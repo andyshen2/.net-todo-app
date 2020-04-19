@@ -7,11 +7,11 @@ import { Counter } from './components/Counter';
 import  Login  from './components/Login';
 import Register  from './components/Register'
 import ToDo from './components/ToDo';
-import {ProtectedRoute} from './ProtectedRoutes';
+import Protected from './ProtectedRoutes';
 import './custom.css'
 import { checkAuth } from './actions';
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, BrowserRouter } from "react-router-dom";
 
 
 class App extends Component {
@@ -30,7 +30,7 @@ class App extends Component {
     // })
     return (
       <Layout>
-
+         <BrowserRouter>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/counter' component={Counter} />
@@ -38,11 +38,11 @@ class App extends Component {
           {/* <Route path='/to-do' component={props => <ToDo {...props} />} /> */}
           
           <Route path="/register" component={props => <Register {...props} />} />
-          <ProtectedRoute  exact path='/to-do' component={props => <ToDo {...props} />} />
-          <Route exact path="/login" component={props => <Login {...props} />} />
+          <Route  exact path='/to-do' component={Protected(props => <ToDo {...props} />)} />
+          < Route exact path="/login" component={Login}  />
 
         </Switch>
-        
+        </BrowserRouter>
       </Layout>
     );
     

@@ -106,4 +106,4 @@ const mapStateToProps = function(state) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ToDo));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ToDo));
