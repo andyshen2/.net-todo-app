@@ -46,6 +46,12 @@ namespace todo_app.Controllers
             return null;
              
         }
+        [HttpPost("auth")]
+        public IActionResult Auth()
+        {
+            return Ok();
+             
+        }
 
         [AllowAnonymous]
         [HttpPost("register")]
@@ -68,7 +74,7 @@ namespace todo_app.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
+        
          [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]AuthenticateModel model)

@@ -38,7 +38,7 @@ export const loginUser = values => async dispatch => {
 
     console.log(sessionStorage.getItem("jwt"))
     // dispatch(loginUser(data.user));
-    dispatch({ type: LOGIN_USER, payload: res.data });
+    dispatch({ type: LOGIN_USER, payload: res });
 
 };  
 
@@ -58,4 +58,10 @@ export const putToDos = values => async dispatch => {
     console.log("here", values.id);
 
     const res = await axios.put(`/todo/${values.id}`, values)
+}
+
+export const checkAuth  = values => async dispatch => {
+    const res = await axios.post('/users/auth');
+
+    dispatch({ type: LOGIN_USER, payload:res})
 }

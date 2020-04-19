@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Router, Route, Redirect, Switch } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
@@ -7,22 +7,61 @@ import { Counter } from './components/Counter';
 import  Login  from './components/Login';
 import Register  from './components/Register'
 import ToDo from './components/ToDo';
+import {ProtectedRoute} from './ProtectedRoutes';
 import './custom.css'
+import { checkAuth } from './actions';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-export default class App extends Component {
+
+class App extends Component {
   static displayName = App.name;
+  // componentDidMount() {
 
+  //   console.log(this.props.checkAuth())
+    
+  // }
   render () {
+    // console.log("state" ,this.props.state)
+    // const { auth } = this.props;
+    // so checks against isAuthenticated can pass
+    // this.props.checkAuth().then({
+      
+    // })
     return (
       <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-        <Route path='/to-do' component={props => <ToDo {...props} />} />
-        <Route path="/login" component={props => <Login {...props} />} />
-        <Route path="/register" component={props => <Register {...props} />} />
 
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/counter' component={Counter} />
+          <Route path='/fetch-data' component={FetchData} />
+          {/* <Route path='/to-do' component={props => <ToDo {...props} />} /> */}
+          
+          <Route path="/register" component={props => <Register {...props} />} />
+          <ProtectedRoute  exact path='/to-do' component={props => <ToDo {...props} />} />
+          <Route exact path="/login" component={props => <Login {...props} />} />
+
+        </Switch>
+        
       </Layout>
     );
+    
+  }
+
+}
+const mapDispatchToProps = dispatch => ({
+    
+  checkAuth: () => dispatch(checkAuth()),
+
+})
+
+const mapStateToProps = function(state) {
+  // console.log("state", state)
+  return {
+
+    state: state.user
   }
 }
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

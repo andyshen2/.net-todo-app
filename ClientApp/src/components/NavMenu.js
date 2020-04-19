@@ -20,7 +20,9 @@ export class NavMenu extends Component {
       collapsed: !this.state.collapsed
     });
   }
-
+handle () {
+  console.log(this.props)
+}
   render () {
     console.log(this.props)
     return (
@@ -38,8 +40,9 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                  <NavLink tag={Link} to="/login" className="text-dark" onClick={this.handle} >Logout</NavLink>
                 </NavItem>
+              
               </ul>
             </Collapse>
           </Container>
