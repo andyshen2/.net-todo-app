@@ -6,7 +6,6 @@ import { withRouter } from "react-router-dom";
 import { Button, Input } from 'reactstrap';
 import {SingleToDo} from './SingleToDo';
 export class ToDo extends Component {
-//   static displayName = Counter.name;
 
 constructor(props) {
     super(props);
@@ -17,7 +16,7 @@ constructor(props) {
 }
 
 componentDidMount(){
-    console.log("mounting")
+
     this.props.getToDos().then(() => {
         this.setState({todos: this.props.todos, loading: false, });
 
@@ -25,9 +24,7 @@ componentDidMount(){
 
     );
 }
-editToDo = id => {
-    console.log(id)
-}
+
  renderForecastsTable = todos => {
     
    
@@ -61,32 +58,16 @@ editToDo = id => {
 
 
 render() {
-    // console.log(this.state.todos);
+
     let rows;
     // this.renderForecastsTable(this.state.todos);
     let contents = this.state.loading
 
       ? <p><em>Loading...</em></p>
       :this.renderForecastsTable(this.state.todos);
-    //   :  rows = Object.keys(this.state.todos).map(key => {
-    //     // console.log("key", key)
-    //     return (
-   
-    //     <SingleToDo
-    //         key={this.state.todos[key].id}
-    //         data={this.state.todos[key]}
-    //         putToDos={this.props.putToDos}
-    //     />
-    //     );
-
-    // });
-
-   
   return (
     <div>
        {contents}
-       {/* <div>{contents}</div> */}
-   
     </div>
   );
 }
@@ -98,7 +79,6 @@ const mapDispatchToProps = dispatch => ({
   putToDos: newToDo => dispatch(putToDos(newToDo))
 })
 const mapStateToProps = function(state) {
-    console.log("state", state)
   return {
 
     todos: state.todos

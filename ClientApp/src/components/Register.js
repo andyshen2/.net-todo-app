@@ -33,7 +33,6 @@ class Register extends Component {
         switch (name) {
 
             case 'firstName': 
-            console.log("first")
             errors.firstname = 
                 value.length < 1
                     ? 'First name cannot be empty'
@@ -77,10 +76,8 @@ class Register extends Component {
 
 
         this.props.registerUser(this.state).then(e => {
-            // this.props.history.push("/login")
-            console.log(this.props)
+            this.props.history.push("/login")
         }).catch((error) => {
-            console.log(this.props.reg.user)
             if(this.props.reg.user.message){
                 errors.general = this.props.reg.user.message;
             }else{
@@ -89,7 +86,6 @@ class Register extends Component {
 
 
             this.setState({errors, [name]: value});
-            // console.log(this.state.errors)
         });
         
     }

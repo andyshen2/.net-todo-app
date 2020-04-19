@@ -40,7 +40,6 @@ export class FetchData extends Component {
   }
 
   render() {
-    console.log(this.props);
     let contents = this.state.loading
 
       ? <p><em>Loading...</em></p>

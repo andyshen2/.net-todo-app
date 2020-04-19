@@ -10,7 +10,6 @@ import {
 axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("jwt");
     config.headers.Authorization = `Bearer ${token}`;
-    console.log("interceptors");
     return config;
 });
 
@@ -31,31 +30,23 @@ export const registerUser = values => async dispatch => {
    
 };  
 export const loginUser = values => async dispatch => {
-    console.log(values)
     const res = await axios.post('/users/authenticate', values);
-    console.log("res", res)
     sessionStorage.setItem("jwt", res.data.token);
 
-    console.log(sessionStorage.getItem("jwt"))
-    // dispatch(loginUser(data.user));
     dispatch({ type: LOGIN_USER, payload: res });
 
 };  
 
 export const getToDos = values => async dispatch => {
-    console.log("hello")
     const res = await axios.get('/todo');
-    console.log("res", res)
     dispatch({ type: TO_DOS, payload: res.data });
 }
 
 export const deleteToDos = values => async dispatch => {
-    console.log(values);
     const res = await axios.delete('/todo');
 }
 
 export const putToDos = values => async dispatch => {
-    console.log("here", values.id);
 
     const res = await axios.put(`/todo/${values.id}`, values)
 }

@@ -18,7 +18,7 @@ export class SingleToDo extends Component {
         this.handleFinished = this.handleFinished.bind(this);
       }
     componentDidMount(){
-        console.log("mounting")
+
         this.setState({summary: this.props.data.summary, id: this.props.data.id, finished: this.props.data.finished});
     }
 
@@ -28,9 +28,7 @@ export class SingleToDo extends Component {
     }
     saveToDo () {
         this.setState({editing: false});
-        
         var newToDo = {id: this.state.id, summary: this.state.summary, finished: this.state.finished};
-        console.log(newToDo)
         this.props.putToDos(newToDo);
     }
     handleChange = event => {
