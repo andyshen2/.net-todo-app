@@ -18,7 +18,13 @@ export class SingleToDo extends Component {
         this.handleFinished = this.handleFinished.bind(this);
       }
     componentDidMount(){
-
+        if(this.props.data === undefined){
+            return <em></em>
+        }
+        // console.log(this.props.data)
+        // if(this.props.data.summary.finished){
+            // console.log(this.props.data)
+        // }
         this.setState({summary: this.props.data.summary, id: this.props.data.id, finished: this.props.data.finished});
     }
 
@@ -44,7 +50,10 @@ export class SingleToDo extends Component {
 
     }
     render() {
-
+        if(this.props.data === undefined){
+            return <em></em>
+        }
+        console.log(this.props.data)
         let edit = this.state.editing
             ? <div>
                  <input

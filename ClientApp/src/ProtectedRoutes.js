@@ -9,7 +9,7 @@ import { checkAuth } from './actions';
 export default function(Component) {
   class Authenticate extends React.Component {
     componentDidMount() {
-            if(!this.props.isAuthenticated && sessionStorage.getItem('jwt')){
+            if(!this.props.isAuthenticated && !sessionStorage.getItem('jwt')){
                 this.props.history.push("/login");
             }
     }

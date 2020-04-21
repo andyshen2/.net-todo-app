@@ -9,8 +9,8 @@ export class ToDo extends Component {
 
 constructor(props) {
     super(props);
-    this.state = { todos: [], loading: true };
-    this.editToDo = this.editToDo.bind(this);
+    this.state = { todos: [], inProgress: [], completed: [], loading: true };
+    // this.editToDo = this.editToDo.bind(this);
     this.renderForecastsTable = this.renderForecastsTable.bind(this)
 
 }
@@ -19,11 +19,33 @@ componentDidMount(){
 
     this.props.getToDos().then(() => {
         this.setState({todos: this.props.todos, loading: false, });
-
+        this.props.todos.forEach(element => {
+          if (element.finished){
+            var og = this.state.completed.concat(element);
+            this.setState({completed: og});
+            // console.log("complete",this.state.completed);
+          
+          }else{
+            var og = this.state.inProgress.concat(element);
+            this.setState({inProgress: og})
+            // console.log(this.state.inProgress)
+          }
+        });
+        if(this.state.completed.length != this.state.inProgress.length){
+          if(this.state.completed.length < this.state.inProgress.length){
+            for(var i=this.state.completed.length-1; i < this.state.inProgress.length-1; i ++){
+              this.state.completed.push("");
+            }
+          }
+        }
+        console.log(this.state.completed)
     }
-
     );
-}
+   
+    
+  }
+   
+    
 
  renderForecastsTable = todos => {
     
@@ -40,17 +62,27 @@ componentDidMount(){
         <tbody>
    
           {
-              this.state.todos.map(todos =>
+              this.state.inProgress.map((todos, i) =>
+             
                 <tr key={todos.id}>
                     <td> 
                         <SingleToDo
-                        // key={this.state.todos[key].id}
+
                         data={todos}
                         putToDos={this.props.putToDos}/>
                     </td>
-                    <td>sdv</td>
+                    <td>
+                    <SingleToDo
+                      
+                      data={this.state.completed[i]}
+                      putToDos={this.props.putToDos}/>
+                    </td>
                 </tr>
-                )}
+                )
+                
+            }
+           
+              
         </tbody>
       </table>
     );
