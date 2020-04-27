@@ -46,14 +46,11 @@ handle () {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
-            <NavbarBrand tag={Link} to="/">todo_app</NavbarBrand>
+            <NavbarBrand tag={Link} to="/to-do">To Do</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
-               
-                {/* <NavItem>
-                  <NavLink tag={Link} to="/login" className="text-dark" onClick={this.handle} >Logout</NavLink>
-                </NavItem> */}
+            
                 
                 {logged}
               

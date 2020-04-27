@@ -43,7 +43,7 @@ export const getToDos = values => async dispatch => {
 }
 
 export const deleteToDos = values => async dispatch => {
-    const res = await axios.delete('/todo');
+    const res = await axios.delete(`/todo/${values}`);
 }
 
 export const putToDos = values => async dispatch => {
@@ -55,4 +55,9 @@ export const checkAuth  = values => async dispatch => {
     const res = await axios.post('/users/auth');
 
     dispatch({ type: LOGIN_USER, payload:res})
+}
+export const addToDo = values => async dispatch => {
+    console.log(values)
+    const res = await axios.post('/todo', values)
+
 }

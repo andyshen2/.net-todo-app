@@ -14,13 +14,17 @@ export class SingleToDo extends Component {
         };
         this.editToDo = this.editToDo.bind(this);
         this.saveToDo = this.saveToDo.bind(this);
+        // this.deleteToDo = this.deleteToDo.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleFinished = this.handleFinished.bind(this);
       }
     componentDidMount(){
-        if(this.props.data === undefined){
-            return <em></em>
-        }
+        // console.log(this.props.data)
+        // console.log(this.props)
+        // if(!this.props.data ){
+        //     // console.log(this.props.data);
+        //     return <em></em>
+        // }
         // console.log(this.props.data)
         // if(this.props.data.summary.finished){
             // console.log(this.props.data)
@@ -29,9 +33,11 @@ export class SingleToDo extends Component {
     }
 
      editToDo () {
+      
         this.setState({editing: true});
 
     }
+    
     saveToDo () {
         this.setState({editing: false});
         var newToDo = {id: this.state.id, summary: this.state.summary, finished: this.state.finished};
@@ -50,10 +56,13 @@ export class SingleToDo extends Component {
 
     }
     render() {
-        if(this.props.data === undefined){
-            return <em></em>
-        }
-        console.log(this.props.data)
+
+        // if (this.state.id === null) {
+        //     return <em></em>
+        // }
+        // console.log(this.state)
+       
+    //    console.log(this.props)
         let edit = this.state.editing
             ? <div>
                  <input
@@ -69,6 +78,7 @@ export class SingleToDo extends Component {
                     onChange={this.handleChange}
                     />
                 <Button onClick={this.saveToDo}>Save</Button>
+                <Button onClick={()=>this.props.deleteToDos(this.state.id)}>Delete</Button>
             </div>
             :<div> 
                  <input
@@ -80,6 +90,7 @@ export class SingleToDo extends Component {
                 />
                {this.state.summary}
                 <Button onClick={this.editToDo}>Edit</Button>
+                <Button onClick={()=>this.props.deleteToDos(this.state.id)}>Delete</Button>
             </div>
            
       return (
