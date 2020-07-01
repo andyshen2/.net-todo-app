@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using todo_app.Services;
 
-// 
 
 namespace todo_app.Controllers
 {
@@ -120,8 +119,7 @@ namespace todo_app.Controllers
         {
             
             var currentUserId = int.Parse(User.Identity.Name);
-            Console.WriteLine("delete " + currentUserId + "id " + id);
-            
+          
             var todoItem = await _context.ToDos.FindAsync(id);
             if (todoItem == null)
             {

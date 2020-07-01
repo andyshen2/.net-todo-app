@@ -13,11 +13,9 @@ export default function (state = {}, action) {
       }else{
         return {isAuthenticated: false}
       }
-			// return action.payload;
 		default:
             return state;
         case REG_ERROR:
-            // return "FUCCCK"
             return action.payload.data;
     
 	}

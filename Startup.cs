@@ -38,20 +38,10 @@ namespace todo_app
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<UserContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            //   services.AddDbContext<ToDoContext>(options =>
-            //  options.UseSqlServer(Configuration.GetConnectionString("Default")));
-
+       
             
             services.AddControllersWithViews();
-            // services.AddIdentity<User, IdentityRole>()
-            //                 .AddEntityFrameworkStores<UserContext>()
-            //                 .AddDefaultTokenProviders();
-
-            // services.AddIdentity<ApplicationUser, IdentityRole>()
-            //     .AddEntityFrameworkStores<ApplicationDbContext>()
-            //     .AddDefaultTokenProviders()
-            //     .AddDefaultUI();
-
+           
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
