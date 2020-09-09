@@ -20,9 +20,9 @@ namespace todo_app.Controllers
     [ApiController]
     [Route("[controller]")]
     public class ToDoController : ControllerBase
-    {   
+    {
         private readonly UserManager<IdentityUser> _userManager;
-         private IUserService _userService;
+        private IUserService _userService;
         private readonly UserContext _context;
 
         private readonly IConfiguration _configuration;
@@ -30,7 +30,7 @@ namespace todo_app.Controllers
 
 
         [ActivatorUtilitiesConstructor]
-        public ToDoController (IConfiguration configuration, UserContext context, IUserService userService)
+        public ToDoController(IConfiguration configuration, UserContext context, IUserService userService)
         {
             _context = context;
             _configuration = configuration;
@@ -43,30 +43,30 @@ namespace todo_app.Controllers
             _logger = logger;
         }
 
-     
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDo>>> GetTodoItems()
         {
-  
+
             var currentUserId = int.Parse(User.Identity.Name);
 
             var blog1 = _context.ToDos
                 .Where(b => b.UserId == currentUserId)
                 .ToList();
-                       
-                return blog1;
+
+            return blog1;
         }
 
         [HttpPost]
         public async Task<ActionResult<ToDo>> PostTodo(ToDo todoItem)
         {
-           var currentUserId = int.Parse(User.Identity.Name);
+            var currentUserId = int.Parse(User.Identity.Name);
 
             // Console.WriteLine("current id " + currentUserId);
             todoItem.UserId = currentUserId;
-           
+
             Console.WriteLine("todo userid" + todoItem.UserId);
-           
+
             _context.ToDos.Add(todoItem);
             await _context.SaveChangesAsync();
 
@@ -76,78 +76,84 @@ namespace todo_app.Controllers
 
             //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             return CreatedAtAction(nameof(ToDo), new { id = todoItem.Id }, todoItem);
-            
+
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodoItem(int id, ToDo todoItemDTO)
         {
-                if (id != todoItemDTO.Id)
-                {
-                    return BadRequest();
-                }
+            if (id != todoItemDTO.Id)
+            {
+                return BadRequest();
+            }
 
-                var todoItem = await _context.ToDos.FindAsync(id);
+            var todoItem = await _context.ToDos.FindAsync(id);
 
-                if (todoItem == null)
-                {
-                    return NotFound();
-                }
-                var currentUserId = int.Parse(User.Identity.Name);
-                if(currentUserId == todoItem.UserId){
-                     todoItem.UserId = currentUserId;
-                    todoItem.Summary = todoItemDTO.Summary;
-                    todoItem.Finished = todoItemDTO.Finished;
-                }else{
-                    return Unauthorized();
-                }
-               
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+            var currentUserId = int.Parse(User.Identity.Name);
+            if (currentUserId == todoItem.UserId)
+            {
+                todoItem.UserId = currentUserId;
+                todoItem.Summary = todoItemDTO.Summary;
+                todoItem.Finished = todoItemDTO.Finished;
+            }
+            else
+            {
+                return Unauthorized();
+            }
 
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
-                {
-                    return NotFound();
-                }
 
-                return NoContent();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ToDo>> DeleteTodoItem(int id)
         {
-            
+
             var currentUserId = int.Parse(User.Identity.Name);
-          
+
             var todoItem = await _context.ToDos.FindAsync(id);
             if (todoItem == null)
             {
                 return NotFound();
             }
-            if(currentUserId == todoItem.UserId){
+            if (currentUserId == todoItem.UserId)
+            {
 
                 _context.ToDos.Remove(todoItem);
                 await _context.SaveChangesAsync();
-            }else{
+            }
+            else
+            {
                 return Unauthorized();
             }
-           
+
 
             return todoItem;
         }
-         private bool TodoItemExists(long id)
+        private bool TodoItemExists(long id)
         {
             return _context.ToDos.Any(e => e.Id == id);
-        }   
-         private static ToDo ItemToDTO(ToDo todoItem) =>
-        new ToDo
-        {
-            Id = todoItem.Id,
-            Summary = todoItem.Summary,
-            Finished = todoItem.Finished,
-            UserId = todoItem.UserId
-        };       
+        }
+        private static ToDo ItemToDTO(ToDo todoItem) =>
+       new ToDo
+       {
+           Id = todoItem.Id,
+           Summary = todoItem.Summary,
+           Finished = todoItem.Finished,
+           UserId = todoItem.UserId
+       };
 
     }
 }

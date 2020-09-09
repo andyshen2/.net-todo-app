@@ -16,7 +16,7 @@ using todo_app.Services;
 // using WebApi.Entities;
 
 
-namespace todo_app.Controllers 
+namespace todo_app.Controllers
 {
     [Authorize]
     [ApiController]
@@ -37,27 +37,27 @@ namespace todo_app.Controllers
             _appSettings = appSettings.Value;
         }
 
-          // [AllowAnonymous]
+        // [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAll()
         {
-             var currentUserId = int.Parse(User.Identity.Name);
-             Console.WriteLine("current id " + currentUserId);
+            var currentUserId = int.Parse(User.Identity.Name);
+            Console.WriteLine("current id " + currentUserId);
             return null;
-             
+
         }
         [HttpPost("auth")]
         public IActionResult Auth()
         {
             return Ok();
-             
+
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]RegisterModel model)
+        public IActionResult Register([FromBody] RegisterModel model)
         {
-      
+
             Console.WriteLine(model.Password);
             // map model to entity
             var user = _mapper.Map<User>(model);
@@ -74,12 +74,12 @@ namespace todo_app.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        
-         [AllowAnonymous]
+
+        [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
-           
+
             var user = _userService.Authenticate(model.Username, model.Password);
 
             if (user == null)
@@ -101,7 +101,7 @@ namespace todo_app.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-           
+
             // return basic user info and authentication token
             return Ok(new
             {
@@ -112,19 +112,19 @@ namespace todo_app.Controllers
                 Token = tokenString
             });
         }
-        
-      
 
 
-         
-
-      
-        
 
 
-        
 
-   
-      
+
+
+
+
+
+
+
+
+
     }
 }
